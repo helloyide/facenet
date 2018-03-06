@@ -32,7 +32,7 @@ import cv2
 
 import face
 
-
+# 在frame上绘制bounding box, frame_rate和人名, 两者都来自faces参数, 可以包括多个face
 def add_overlays(frame, faces, frame_rate):
     if faces is not None:
         for face in faces:
@@ -69,6 +69,7 @@ def main(args):
         ret, frame = video_capture.read()
 
         if (frame_count % frame_interval) == 0:
+            # 从frame上识别人脸, 人名和bounding box, frame上可能包括多个人脸
             faces = face_recognition.identify(frame)
 
             # Check our current fps

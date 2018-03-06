@@ -37,6 +37,7 @@ import lfw
 import os
 import sys
 import math
+import time
 from sklearn import metrics
 from scipy.optimize import brentq
 from scipy import interpolate
@@ -55,11 +56,36 @@ def main(args):
 
             # Load the model
             facenet.load_model(args.model)
-            
+            # TODO: replace near 0 parameters to 0
+            trainable_vars = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES)
+
+            print("trainable_vars", len(trainable_vars))
+            zero_threshold = 1e-2
+            n_var_components = 0
+            n_non_zero = 0
+            n_non_zero_after = 0
+            assign_ops = []
+            for var in trainable_vars:
+                matrix = var.eval(sess)
+                # if var.name.endswith("weights:0"):
+                #     print(matrix)
+                n_var_components += np.size(matrix)
+                n_non_zero += np.count_nonzero(matrix)
+                # matrix[np.abs(matrix)<=zero_threshold] = 0
+                # n_non_zero_after += np.count_nonzero(matrix)
+                # assign_ops.append(var.assign(matrix))
+
+            print("non_zero: ",n_non_zero,n_var_components,n_non_zero/n_var_components)
+            # print("non_zero after: ",n_non_zero_after,n_var_components,n_non_zero_after/n_var_components)
+
+            # sess.run(assign_ops)
+
+
             # Get input and output tensors
-            images_placeholder = tf.get_default_graph().get_tensor_by_name("input:0")
-            embeddings = tf.get_default_graph().get_tensor_by_name("embeddings:0")
-            phase_train_placeholder = tf.get_default_graph().get_tensor_by_name("phase_train:0")
+            graph = tf.get_default_graph()
+            images_placeholder = graph.get_tensor_by_name("input:0")
+            embeddings = graph.get_tensor_by_name("embeddings:0")
+            phase_train_placeholder = graph.get_tensor_by_name("phase_train:0")
             
             #image_size = images_placeholder.get_shape()[1]  # For some reason this doesn't work for frozen graphs
             image_size = args.image_size
@@ -67,6 +93,8 @@ def main(args):
         
             # Run forward pass to calculate embeddings
             print('Runnning forward pass on LFW images')
+            start_time = time.time()
+
             batch_size = args.lfw_batch_size
             nrof_images = len(paths)
             nrof_batches = int(math.ceil(1.0*nrof_images / batch_size))
@@ -78,9 +106,11 @@ def main(args):
                 images = facenet.load_data(paths_batch, False, False, image_size)
                 feed_dict = { images_placeholder:images, phase_train_placeholder:False }
                 emb_array[start_index:end_index,:] = sess.run(embeddings, feed_dict=feed_dict)
-        
-            tpr, fpr, accuracy, val, val_std, far = lfw.evaluate(emb_array, 
-                actual_issame, nrof_folds=args.lfw_nrof_folds)
+
+            duration = time.time() - start_time
+            print('Forward pass duration in %.3f seconds' % duration)
+
+            tpr, fpr, accuracy, val, val_std, far = lfw.evaluate(emb_array, actual_issame, nrof_folds=args.lfw_nrof_folds)
 
             print('Accuracy: %1.3f+-%1.3f' % (np.mean(accuracy), np.std(accuracy)))
             print('Validation rate: %2.5f+-%2.5f @ FAR=%2.5f' % (val, val_std, far))
@@ -89,7 +119,7 @@ def main(args):
             print('Area Under Curve (AUC): %1.3f' % auc)
             eer = brentq(lambda x: 1. - x - interpolate.interp1d(fpr, tpr)(x), 0., 1.)
             print('Equal Error Rate (EER): %1.3f' % eer)
-            
+
 def parse_arguments(argv):
     parser = argparse.ArgumentParser()
     

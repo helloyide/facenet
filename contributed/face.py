@@ -42,8 +42,12 @@ import facenet
 
 
 gpu_memory_fraction = 0.3
-facenet_model_checkpoint = os.path.dirname(__file__) + "/../model_checkpoints/20170512-110547"
-classifier_model = os.path.dirname(__file__) + "/../model_checkpoints/my_classifier_1.pkl"
+# facenet_model_checkpoint = os.path.dirname(__file__) + "/../model_checkpoints/20170512-110547"
+# classifier_model = os.path.dirname(__file__) + "/../model_checkpoints/my_classifier_1.pkl"
+facenet_model_checkpoint = os.path.dirname(__file__) + "/../models/facenet/20170512-110547"
+# stored sklearn SVC model
+# see also: classifier.py to train your own classifier
+classifier_model = os.path.dirname(__file__) + "/../models/lfw_classifier.pkl"
 debug = False
 
 
@@ -62,34 +66,44 @@ class Recognition:
         self.encoder = Encoder()
         self.identifier = Identifier()
 
+    # no usage found
+    # 不使用classifier, 自己通过调用此函数指定人名
     def add_identity(self, image, person_name):
         faces = self.detect.find_faces(image)
 
+        # 图片上只有一个人
         if len(faces) == 1:
             face = faces[0]
+            # 指定人名(参数)
             face.name = person_name
+            # 计算人脸图片的embedding
             face.embedding = self.encoder.generate_embedding(face)
             return faces
 
     def identify(self, image):
+        """从frame上识别人脸, 人名和bounding box, frame上可能包括多个人脸"""
         faces = self.detect.find_faces(image)
 
         for i, face in enumerate(faces):
             if debug:
                 cv2.imshow("Face: " + str(i), face.image)
+            # 计算人脸图片的embedding
             face.embedding = self.encoder.generate_embedding(face)
+            # 根据embedding寻找最符合的人名
             face.name = self.identifier.identify(face)
 
         return faces
 
 
 class Identifier:
+    """根据face的embedding, 找出最可能的人名, 数据库来自/../models/lfw_classifier.pkl"""
     def __init__(self):
         with open(classifier_model, 'rb') as infile:
             self.model, self.class_names = pickle.load(infile)
 
     def identify(self, face):
         if face.embedding is not None:
+            # 使用训练好的classifier, 通过embedding预测人名(class)
             predictions = self.model.predict_proba([face.embedding])
             best_class_indices = np.argmax(predictions, axis=1)
             return self.class_names[best_class_indices[0]]
@@ -115,6 +129,8 @@ class Encoder:
 
 
 class Detection:
+    """使用mtcnn在图片中寻找人脸bounding box, 可以存在多个人脸"""
+
     # face detection parameters
     minsize = 20  # minimum size of face
     threshold = [0.6, 0.7, 0.7]  # three steps's threshold
