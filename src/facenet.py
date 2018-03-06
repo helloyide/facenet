@@ -97,7 +97,7 @@ def center_loss(features, label, alfa, nrof_classes):
     # 论文中提到的第一点: 由于计算量太大, 不可能每次都准确计算所有类的所有训练数据的center, 所以只计算当前batch的部分类的center.
     centers = tf.scatter_sub(centers, label, diff)
     # 求features - centers_batch的L2 Norm的平方.
-    # L2 Norm就是vector所有元素求平方和之后再开方, 求他的平方就是不用开方只求平均和了.
+    # L2 Norm就是vector所有元素求平方和之后再开方, 求他的平方就是不用开方只求平方和了.
     loss = tf.reduce_mean(tf.square(features - centers_batch))
     return loss, centers
 

@@ -1,0 +1,730 @@
+{
+  "Logits/biases": {
+    "filename": "Logits_biases",
+    "shape": [
+      530
+    ]
+  },
+  "Logits/weights": {
+    "filename": "Logits_weights",
+    "shape": [
+      128,
+      530
+    ]
+  },
+  "squeezenet/Bottleneck/BatchNorm/beta": {
+    "filename": "squeezenet_Bottleneck_BatchNorm_beta",
+    "shape": [
+      128
+    ]
+  },
+  "squeezenet/Bottleneck/BatchNorm/moving_mean": {
+    "filename": "squeezenet_Bottleneck_BatchNorm_moving_mean",
+    "shape": [
+      128
+    ]
+  },
+  "squeezenet/Bottleneck/BatchNorm/moving_variance": {
+    "filename": "squeezenet_Bottleneck_BatchNorm_moving_variance",
+    "shape": [
+      128
+    ]
+  },
+  "squeezenet/Bottleneck/weights": {
+    "filename": "squeezenet_Bottleneck_weights",
+    "shape": [
+      1000,
+      128
+    ]
+  },
+  "squeezenet/conv1/BatchNorm/beta": {
+    "filename": "squeezenet_conv1_BatchNorm_beta",
+    "shape": [
+      96
+    ]
+  },
+  "squeezenet/conv1/BatchNorm/moving_mean": {
+    "filename": "squeezenet_conv1_BatchNorm_moving_mean",
+    "shape": [
+      96
+    ]
+  },
+  "squeezenet/conv1/BatchNorm/moving_variance": {
+    "filename": "squeezenet_conv1_BatchNorm_moving_variance",
+    "shape": [
+      96
+    ]
+  },
+  "squeezenet/conv1/weights": {
+    "filename": "squeezenet_conv1_weights",
+    "shape": [
+      7,
+      7,
+      3,
+      96
+    ]
+  },
+  "squeezenet/conv10/biases": {
+    "filename": "squeezenet_conv10_biases",
+    "shape": [
+      1000
+    ]
+  },
+  "squeezenet/conv10/weights": {
+    "filename": "squeezenet_conv10_weights",
+    "shape": [
+      1,
+      1,
+      512,
+      1000
+    ]
+  },
+  "squeezenet/fire2/expand/1x1/BatchNorm/beta": {
+    "filename": "squeezenet_fire2_expand_1x1_BatchNorm_beta",
+    "shape": [
+      64
+    ]
+  },
+  "squeezenet/fire2/expand/1x1/BatchNorm/moving_mean": {
+    "filename": "squeezenet_fire2_expand_1x1_BatchNorm_moving_mean",
+    "shape": [
+      64
+    ]
+  },
+  "squeezenet/fire2/expand/1x1/BatchNorm/moving_variance": {
+    "filename": "squeezenet_fire2_expand_1x1_BatchNorm_moving_variance",
+    "shape": [
+      64
+    ]
+  },
+  "squeezenet/fire2/expand/1x1/weights": {
+    "filename": "squeezenet_fire2_expand_1x1_weights",
+    "shape": [
+      1,
+      1,
+      16,
+      64
+    ]
+  },
+  "squeezenet/fire2/expand/3x3/BatchNorm/beta": {
+    "filename": "squeezenet_fire2_expand_3x3_BatchNorm_beta",
+    "shape": [
+      64
+    ]
+  },
+  "squeezenet/fire2/expand/3x3/BatchNorm/moving_mean": {
+    "filename": "squeezenet_fire2_expand_3x3_BatchNorm_moving_mean",
+    "shape": [
+      64
+    ]
+  },
+  "squeezenet/fire2/expand/3x3/BatchNorm/moving_variance": {
+    "filename": "squeezenet_fire2_expand_3x3_BatchNorm_moving_variance",
+    "shape": [
+      64
+    ]
+  },
+  "squeezenet/fire2/expand/3x3/weights": {
+    "filename": "squeezenet_fire2_expand_3x3_weights",
+    "shape": [
+      3,
+      3,
+      16,
+      64
+    ]
+  },
+  "squeezenet/fire2/squeeze/BatchNorm/beta": {
+    "filename": "squeezenet_fire2_squeeze_BatchNorm_beta",
+    "shape": [
+      16
+    ]
+  },
+  "squeezenet/fire2/squeeze/BatchNorm/moving_mean": {
+    "filename": "squeezenet_fire2_squeeze_BatchNorm_moving_mean",
+    "shape": [
+      16
+    ]
+  },
+  "squeezenet/fire2/squeeze/BatchNorm/moving_variance": {
+    "filename": "squeezenet_fire2_squeeze_BatchNorm_moving_variance",
+    "shape": [
+      16
+    ]
+  },
+  "squeezenet/fire2/squeeze/weights": {
+    "filename": "squeezenet_fire2_squeeze_weights",
+    "shape": [
+      1,
+      1,
+      96,
+      16
+    ]
+  },
+  "squeezenet/fire3/expand/1x1/BatchNorm/beta": {
+    "filename": "squeezenet_fire3_expand_1x1_BatchNorm_beta",
+    "shape": [
+      64
+    ]
+  },
+  "squeezenet/fire3/expand/1x1/BatchNorm/moving_mean": {
+    "filename": "squeezenet_fire3_expand_1x1_BatchNorm_moving_mean",
+    "shape": [
+      64
+    ]
+  },
+  "squeezenet/fire3/expand/1x1/BatchNorm/moving_variance": {
+    "filename": "squeezenet_fire3_expand_1x1_BatchNorm_moving_variance",
+    "shape": [
+      64
+    ]
+  },
+  "squeezenet/fire3/expand/1x1/weights": {
+    "filename": "squeezenet_fire3_expand_1x1_weights",
+    "shape": [
+      1,
+      1,
+      16,
+      64
+    ]
+  },
+  "squeezenet/fire3/expand/3x3/BatchNorm/beta": {
+    "filename": "squeezenet_fire3_expand_3x3_BatchNorm_beta",
+    "shape": [
+      64
+    ]
+  },
+  "squeezenet/fire3/expand/3x3/BatchNorm/moving_mean": {
+    "filename": "squeezenet_fire3_expand_3x3_BatchNorm_moving_mean",
+    "shape": [
+      64
+    ]
+  },
+  "squeezenet/fire3/expand/3x3/BatchNorm/moving_variance": {
+    "filename": "squeezenet_fire3_expand_3x3_BatchNorm_moving_variance",
+    "shape": [
+      64
+    ]
+  },
+  "squeezenet/fire3/expand/3x3/weights": {
+    "filename": "squeezenet_fire3_expand_3x3_weights",
+    "shape": [
+      3,
+      3,
+      16,
+      64
+    ]
+  },
+  "squeezenet/fire3/squeeze/BatchNorm/beta": {
+    "filename": "squeezenet_fire3_squeeze_BatchNorm_beta",
+    "shape": [
+      16
+    ]
+  },
+  "squeezenet/fire3/squeeze/BatchNorm/moving_mean": {
+    "filename": "squeezenet_fire3_squeeze_BatchNorm_moving_mean",
+    "shape": [
+      16
+    ]
+  },
+  "squeezenet/fire3/squeeze/BatchNorm/moving_variance": {
+    "filename": "squeezenet_fire3_squeeze_BatchNorm_moving_variance",
+    "shape": [
+      16
+    ]
+  },
+  "squeezenet/fire3/squeeze/weights": {
+    "filename": "squeezenet_fire3_squeeze_weights",
+    "shape": [
+      1,
+      1,
+      128,
+      16
+    ]
+  },
+  "squeezenet/fire4/expand/1x1/BatchNorm/beta": {
+    "filename": "squeezenet_fire4_expand_1x1_BatchNorm_beta",
+    "shape": [
+      128
+    ]
+  },
+  "squeezenet/fire4/expand/1x1/BatchNorm/moving_mean": {
+    "filename": "squeezenet_fire4_expand_1x1_BatchNorm_moving_mean",
+    "shape": [
+      128
+    ]
+  },
+  "squeezenet/fire4/expand/1x1/BatchNorm/moving_variance": {
+    "filename": "squeezenet_fire4_expand_1x1_BatchNorm_moving_variance",
+    "shape": [
+      128
+    ]
+  },
+  "squeezenet/fire4/expand/1x1/weights": {
+    "filename": "squeezenet_fire4_expand_1x1_weights",
+    "shape": [
+      1,
+      1,
+      32,
+      128
+    ]
+  },
+  "squeezenet/fire4/expand/3x3/BatchNorm/beta": {
+    "filename": "squeezenet_fire4_expand_3x3_BatchNorm_beta",
+    "shape": [
+      128
+    ]
+  },
+  "squeezenet/fire4/expand/3x3/BatchNorm/moving_mean": {
+    "filename": "squeezenet_fire4_expand_3x3_BatchNorm_moving_mean",
+    "shape": [
+      128
+    ]
+  },
+  "squeezenet/fire4/expand/3x3/BatchNorm/moving_variance": {
+    "filename": "squeezenet_fire4_expand_3x3_BatchNorm_moving_variance",
+    "shape": [
+      128
+    ]
+  },
+  "squeezenet/fire4/expand/3x3/weights": {
+    "filename": "squeezenet_fire4_expand_3x3_weights",
+    "shape": [
+      3,
+      3,
+      32,
+      128
+    ]
+  },
+  "squeezenet/fire4/squeeze/BatchNorm/beta": {
+    "filename": "squeezenet_fire4_squeeze_BatchNorm_beta",
+    "shape": [
+      32
+    ]
+  },
+  "squeezenet/fire4/squeeze/BatchNorm/moving_mean": {
+    "filename": "squeezenet_fire4_squeeze_BatchNorm_moving_mean",
+    "shape": [
+      32
+    ]
+  },
+  "squeezenet/fire4/squeeze/BatchNorm/moving_variance": {
+    "filename": "squeezenet_fire4_squeeze_BatchNorm_moving_variance",
+    "shape": [
+      32
+    ]
+  },
+  "squeezenet/fire4/squeeze/weights": {
+    "filename": "squeezenet_fire4_squeeze_weights",
+    "shape": [
+      1,
+      1,
+      128,
+      32
+    ]
+  },
+  "squeezenet/fire5/expand/1x1/BatchNorm/beta": {
+    "filename": "squeezenet_fire5_expand_1x1_BatchNorm_beta",
+    "shape": [
+      128
+    ]
+  },
+  "squeezenet/fire5/expand/1x1/BatchNorm/moving_mean": {
+    "filename": "squeezenet_fire5_expand_1x1_BatchNorm_moving_mean",
+    "shape": [
+      128
+    ]
+  },
+  "squeezenet/fire5/expand/1x1/BatchNorm/moving_variance": {
+    "filename": "squeezenet_fire5_expand_1x1_BatchNorm_moving_variance",
+    "shape": [
+      128
+    ]
+  },
+  "squeezenet/fire5/expand/1x1/weights": {
+    "filename": "squeezenet_fire5_expand_1x1_weights",
+    "shape": [
+      1,
+      1,
+      32,
+      128
+    ]
+  },
+  "squeezenet/fire5/expand/3x3/BatchNorm/beta": {
+    "filename": "squeezenet_fire5_expand_3x3_BatchNorm_beta",
+    "shape": [
+      128
+    ]
+  },
+  "squeezenet/fire5/expand/3x3/BatchNorm/moving_mean": {
+    "filename": "squeezenet_fire5_expand_3x3_BatchNorm_moving_mean",
+    "shape": [
+      128
+    ]
+  },
+  "squeezenet/fire5/expand/3x3/BatchNorm/moving_variance": {
+    "filename": "squeezenet_fire5_expand_3x3_BatchNorm_moving_variance",
+    "shape": [
+      128
+    ]
+  },
+  "squeezenet/fire5/expand/3x3/weights": {
+    "filename": "squeezenet_fire5_expand_3x3_weights",
+    "shape": [
+      3,
+      3,
+      32,
+      128
+    ]
+  },
+  "squeezenet/fire5/squeeze/BatchNorm/beta": {
+    "filename": "squeezenet_fire5_squeeze_BatchNorm_beta",
+    "shape": [
+      32
+    ]
+  },
+  "squeezenet/fire5/squeeze/BatchNorm/moving_mean": {
+    "filename": "squeezenet_fire5_squeeze_BatchNorm_moving_mean",
+    "shape": [
+      32
+    ]
+  },
+  "squeezenet/fire5/squeeze/BatchNorm/moving_variance": {
+    "filename": "squeezenet_fire5_squeeze_BatchNorm_moving_variance",
+    "shape": [
+      32
+    ]
+  },
+  "squeezenet/fire5/squeeze/weights": {
+    "filename": "squeezenet_fire5_squeeze_weights",
+    "shape": [
+      1,
+      1,
+      256,
+      32
+    ]
+  },
+  "squeezenet/fire6/expand/1x1/BatchNorm/beta": {
+    "filename": "squeezenet_fire6_expand_1x1_BatchNorm_beta",
+    "shape": [
+      192
+    ]
+  },
+  "squeezenet/fire6/expand/1x1/BatchNorm/moving_mean": {
+    "filename": "squeezenet_fire6_expand_1x1_BatchNorm_moving_mean",
+    "shape": [
+      192
+    ]
+  },
+  "squeezenet/fire6/expand/1x1/BatchNorm/moving_variance": {
+    "filename": "squeezenet_fire6_expand_1x1_BatchNorm_moving_variance",
+    "shape": [
+      192
+    ]
+  },
+  "squeezenet/fire6/expand/1x1/weights": {
+    "filename": "squeezenet_fire6_expand_1x1_weights",
+    "shape": [
+      1,
+      1,
+      48,
+      192
+    ]
+  },
+  "squeezenet/fire6/expand/3x3/BatchNorm/beta": {
+    "filename": "squeezenet_fire6_expand_3x3_BatchNorm_beta",
+    "shape": [
+      192
+    ]
+  },
+  "squeezenet/fire6/expand/3x3/BatchNorm/moving_mean": {
+    "filename": "squeezenet_fire6_expand_3x3_BatchNorm_moving_mean",
+    "shape": [
+      192
+    ]
+  },
+  "squeezenet/fire6/expand/3x3/BatchNorm/moving_variance": {
+    "filename": "squeezenet_fire6_expand_3x3_BatchNorm_moving_variance",
+    "shape": [
+      192
+    ]
+  },
+  "squeezenet/fire6/expand/3x3/weights": {
+    "filename": "squeezenet_fire6_expand_3x3_weights",
+    "shape": [
+      3,
+      3,
+      48,
+      192
+    ]
+  },
+  "squeezenet/fire6/squeeze/BatchNorm/beta": {
+    "filename": "squeezenet_fire6_squeeze_BatchNorm_beta",
+    "shape": [
+      48
+    ]
+  },
+  "squeezenet/fire6/squeeze/BatchNorm/moving_mean": {
+    "filename": "squeezenet_fire6_squeeze_BatchNorm_moving_mean",
+    "shape": [
+      48
+    ]
+  },
+  "squeezenet/fire6/squeeze/BatchNorm/moving_variance": {
+    "filename": "squeezenet_fire6_squeeze_BatchNorm_moving_variance",
+    "shape": [
+      48
+    ]
+  },
+  "squeezenet/fire6/squeeze/weights": {
+    "filename": "squeezenet_fire6_squeeze_weights",
+    "shape": [
+      1,
+      1,
+      256,
+      48
+    ]
+  },
+  "squeezenet/fire7/expand/1x1/BatchNorm/beta": {
+    "filename": "squeezenet_fire7_expand_1x1_BatchNorm_beta",
+    "shape": [
+      192
+    ]
+  },
+  "squeezenet/fire7/expand/1x1/BatchNorm/moving_mean": {
+    "filename": "squeezenet_fire7_expand_1x1_BatchNorm_moving_mean",
+    "shape": [
+      192
+    ]
+  },
+  "squeezenet/fire7/expand/1x1/BatchNorm/moving_variance": {
+    "filename": "squeezenet_fire7_expand_1x1_BatchNorm_moving_variance",
+    "shape": [
+      192
+    ]
+  },
+  "squeezenet/fire7/expand/1x1/weights": {
+    "filename": "squeezenet_fire7_expand_1x1_weights",
+    "shape": [
+      1,
+      1,
+      48,
+      192
+    ]
+  },
+  "squeezenet/fire7/expand/3x3/BatchNorm/beta": {
+    "filename": "squeezenet_fire7_expand_3x3_BatchNorm_beta",
+    "shape": [
+      192
+    ]
+  },
+  "squeezenet/fire7/expand/3x3/BatchNorm/moving_mean": {
+    "filename": "squeezenet_fire7_expand_3x3_BatchNorm_moving_mean",
+    "shape": [
+      192
+    ]
+  },
+  "squeezenet/fire7/expand/3x3/BatchNorm/moving_variance": {
+    "filename": "squeezenet_fire7_expand_3x3_BatchNorm_moving_variance",
+    "shape": [
+      192
+    ]
+  },
+  "squeezenet/fire7/expand/3x3/weights": {
+    "filename": "squeezenet_fire7_expand_3x3_weights",
+    "shape": [
+      3,
+      3,
+      48,
+      192
+    ]
+  },
+  "squeezenet/fire7/squeeze/BatchNorm/beta": {
+    "filename": "squeezenet_fire7_squeeze_BatchNorm_beta",
+    "shape": [
+      48
+    ]
+  },
+  "squeezenet/fire7/squeeze/BatchNorm/moving_mean": {
+    "filename": "squeezenet_fire7_squeeze_BatchNorm_moving_mean",
+    "shape": [
+      48
+    ]
+  },
+  "squeezenet/fire7/squeeze/BatchNorm/moving_variance": {
+    "filename": "squeezenet_fire7_squeeze_BatchNorm_moving_variance",
+    "shape": [
+      48
+    ]
+  },
+  "squeezenet/fire7/squeeze/weights": {
+    "filename": "squeezenet_fire7_squeeze_weights",
+    "shape": [
+      1,
+      1,
+      384,
+      48
+    ]
+  },
+  "squeezenet/fire8/expand/1x1/BatchNorm/beta": {
+    "filename": "squeezenet_fire8_expand_1x1_BatchNorm_beta",
+    "shape": [
+      256
+    ]
+  },
+  "squeezenet/fire8/expand/1x1/BatchNorm/moving_mean": {
+    "filename": "squeezenet_fire8_expand_1x1_BatchNorm_moving_mean",
+    "shape": [
+      256
+    ]
+  },
+  "squeezenet/fire8/expand/1x1/BatchNorm/moving_variance": {
+    "filename": "squeezenet_fire8_expand_1x1_BatchNorm_moving_variance",
+    "shape": [
+      256
+    ]
+  },
+  "squeezenet/fire8/expand/1x1/weights": {
+    "filename": "squeezenet_fire8_expand_1x1_weights",
+    "shape": [
+      1,
+      1,
+      64,
+      256
+    ]
+  },
+  "squeezenet/fire8/expand/3x3/BatchNorm/beta": {
+    "filename": "squeezenet_fire8_expand_3x3_BatchNorm_beta",
+    "shape": [
+      256
+    ]
+  },
+  "squeezenet/fire8/expand/3x3/BatchNorm/moving_mean": {
+    "filename": "squeezenet_fire8_expand_3x3_BatchNorm_moving_mean",
+    "shape": [
+      256
+    ]
+  },
+  "squeezenet/fire8/expand/3x3/BatchNorm/moving_variance": {
+    "filename": "squeezenet_fire8_expand_3x3_BatchNorm_moving_variance",
+    "shape": [
+      256
+    ]
+  },
+  "squeezenet/fire8/expand/3x3/weights": {
+    "filename": "squeezenet_fire8_expand_3x3_weights",
+    "shape": [
+      3,
+      3,
+      64,
+      256
+    ]
+  },
+  "squeezenet/fire8/squeeze/BatchNorm/beta": {
+    "filename": "squeezenet_fire8_squeeze_BatchNorm_beta",
+    "shape": [
+      64
+    ]
+  },
+  "squeezenet/fire8/squeeze/BatchNorm/moving_mean": {
+    "filename": "squeezenet_fire8_squeeze_BatchNorm_moving_mean",
+    "shape": [
+      64
+    ]
+  },
+  "squeezenet/fire8/squeeze/BatchNorm/moving_variance": {
+    "filename": "squeezenet_fire8_squeeze_BatchNorm_moving_variance",
+    "shape": [
+      64
+    ]
+  },
+  "squeezenet/fire8/squeeze/weights": {
+    "filename": "squeezenet_fire8_squeeze_weights",
+    "shape": [
+      1,
+      1,
+      384,
+      64
+    ]
+  },
+  "squeezenet/fire9/expand/1x1/BatchNorm/beta": {
+    "filename": "squeezenet_fire9_expand_1x1_BatchNorm_beta",
+    "shape": [
+      256
+    ]
+  },
+  "squeezenet/fire9/expand/1x1/BatchNorm/moving_mean": {
+    "filename": "squeezenet_fire9_expand_1x1_BatchNorm_moving_mean",
+    "shape": [
+      256
+    ]
+  },
+  "squeezenet/fire9/expand/1x1/BatchNorm/moving_variance": {
+    "filename": "squeezenet_fire9_expand_1x1_BatchNorm_moving_variance",
+    "shape": [
+      256
+    ]
+  },
+  "squeezenet/fire9/expand/1x1/weights": {
+    "filename": "squeezenet_fire9_expand_1x1_weights",
+    "shape": [
+      1,
+      1,
+      64,
+      256
+    ]
+  },
+  "squeezenet/fire9/expand/3x3/BatchNorm/beta": {
+    "filename": "squeezenet_fire9_expand_3x3_BatchNorm_beta",
+    "shape": [
+      256
+    ]
+  },
+  "squeezenet/fire9/expand/3x3/BatchNorm/moving_mean": {
+    "filename": "squeezenet_fire9_expand_3x3_BatchNorm_moving_mean",
+    "shape": [
+      256
+    ]
+  },
+  "squeezenet/fire9/expand/3x3/BatchNorm/moving_variance": {
+    "filename": "squeezenet_fire9_expand_3x3_BatchNorm_moving_variance",
+    "shape": [
+      256
+    ]
+  },
+  "squeezenet/fire9/expand/3x3/weights": {
+    "filename": "squeezenet_fire9_expand_3x3_weights",
+    "shape": [
+      3,
+      3,
+      64,
+      256
+    ]
+  },
+  "squeezenet/fire9/squeeze/BatchNorm/beta": {
+    "filename": "squeezenet_fire9_squeeze_BatchNorm_beta",
+    "shape": [
+      64
+    ]
+  },
+  "squeezenet/fire9/squeeze/BatchNorm/moving_mean": {
+    "filename": "squeezenet_fire9_squeeze_BatchNorm_moving_mean",
+    "shape": [
+      64
+    ]
+  },
+  "squeezenet/fire9/squeeze/BatchNorm/moving_variance": {
+    "filename": "squeezenet_fire9_squeeze_BatchNorm_moving_variance",
+    "shape": [
+      64
+    ]
+  },
+  "squeezenet/fire9/squeeze/weights": {
+    "filename": "squeezenet_fire9_squeeze_weights",
+    "shape": [
+      1,
+      1,
+      512,
+      64
+    ]
+  }
+}
