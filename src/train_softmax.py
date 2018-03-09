@@ -105,6 +105,7 @@ def main(args):
         assert len(image_list) > 0, 'The dataset should not be empty'
 
         # Create a queue that produces indices into the image_list and label_list
+        # https://www.tensorflow.org/api_guides/python/threading_and_queues
 
         # This function converts Python objects of various types to Tensor objects.
         # It accepts Tensor objects, numpy arrays, Python lists, and Python scalars.
@@ -133,6 +134,7 @@ def main(args):
                                               shared_name=None, name=None)
         enqueue_op = input_queue.enqueue_many([image_paths_placeholder, labels_placeholder], name='enqueue_op')
 
+        # 这里其实可以参数化, 提高线程数
         nrof_preprocess_threads = 4
 
         # 读取图片文件, 将图片转换成tensor并且做ensembling处理, 结果存入images_and_labels数组
@@ -152,6 +154,7 @@ def main(args):
                 if args.random_rotate:
                     image = tf.py_func(facenet.random_rotate_image, [image], tf.uint8)
                 if args.random_crop:
+                    # 训练数据的图片(182)比参数传进来的大小(160)略大, 不做缩放而是直接随机切成160的
                     image = tf.random_crop(image, [args.image_size, args.image_size, 3])
                 else:
                     image = tf.image.resize_image_with_crop_or_pad(image, args.image_size, args.image_size)
@@ -169,7 +172,8 @@ def main(args):
             shapes=[(args.image_size, args.image_size, 3), ()], enqueue_many=True,
             capacity=4 * nrof_preprocess_threads * args.batch_size,
             allow_smaller_final_batch=True)
-        # Return a tensor with the same shape and contents as the input tensor or value.
+
+        # https://stackoverflow.com/questions/34877523/in-tensorflow-what-is-tf-identity-used-for
         image_batch = tf.identity(image_batch, 'image_batch')
         image_batch = tf.identity(image_batch, 'input')
         label_batch = tf.identity(label_batch, 'label_batch')
@@ -184,6 +188,7 @@ def main(args):
                                          phase_train=phase_train_placeholder,
                                          bottleneck_layer_size=args.embedding_size,
                                          weight_decay=args.weight_decay)
+
         logits = slim.fully_connected(prelogits, len(train_set), activation_fn=None,
                                       weights_initializer=tf.truncated_normal_initializer(stddev=0.1),
                                       weights_regularizer=slim.l2_regularizer(args.weight_decay),

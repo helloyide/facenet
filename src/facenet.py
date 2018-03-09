@@ -257,6 +257,9 @@ def train(total_loss,
 
 
 def prewhiten(x):
+    """
+    实际上就是在做tf.image.per_image_standardization
+    """
     mean = np.mean(x)
     std = np.std(x)
     std_adj = np.maximum(std, 1.0 / np.sqrt(x.size))
