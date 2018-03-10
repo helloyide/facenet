@@ -89,6 +89,11 @@ def main(args):
         snapshot_at_step = int(args.snapshot_at_step)
         print('Will take a snapshot checkpoint at step', snapshot_at_step)
 
+    nrof_preprocess_threads = 4
+    if args.nrof_preprocess_threads:
+        nrof_preprocess_threads = int(args.nrof_preprocess_threads)
+        print('Number of preprocess threads', nrof_preprocess_threads)
+
     if args.lfw_dir:
         print('LFW directory: %s' % args.lfw_dir)
         # Read the file containing the pairs used for testing
@@ -133,9 +138,6 @@ def main(args):
                                               shapes=[(1,), (1,)],
                                               shared_name=None, name=None)
         enqueue_op = input_queue.enqueue_many([image_paths_placeholder, labels_placeholder], name='enqueue_op')
-
-        # 这里其实可以参数化, 提高线程数
-        nrof_preprocess_threads = 4
 
         # 读取图片文件, 将图片转换成tensor并且做ensembling处理, 结果存入images_and_labels数组
         images_and_labels = []

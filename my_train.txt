@@ -79,12 +79,13 @@ python3 ~/PycharmProjects/facenet/src/train_softmax.py \
     --weight_decay 1e-5 \
     --center_loss_factor 1e-2 \
     --center_loss_alfa 0.9 \
-    --model_def models.inception_resnet_v1 \
+    --model_def models.squeezenet \
     --optimizer ADAM \
     --max_nrof_epochs 10 \
     --epoch_size 1000 \
     --random_crop \
     --random_flip \
+    --nrof_preprocess_threads 8 \
     --logs_base_dir ~/PycharmProjects/facenet/logs/facenet/ \
     --models_base_dir ~/PycharmProjects/facenet/models/facenet/ \
     --data_dir ~/PycharmProjects/facenet/datasets/facescrub/facescrub_mtcnnpy_182 \
