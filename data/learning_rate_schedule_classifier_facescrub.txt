@@ -1,5 +1,5 @@
 # Learning rate schedule
 # Maps an epoch number to a learning rate, the program reads this file at each epoch, we can change it during the run
 0:0.1
-6:0.01
-9:0.001
+5:0.01
+8:0.001

@@ -48,11 +48,13 @@ def inference(images,
         'variables_collections': [tf.GraphKeys.TRAINABLE_VARIABLES],
     }
     with slim.arg_scope([slim.conv2d, slim.fully_connected],
-                        weights_initializer=slim.xavier_initializer_conv2d(uniform=True),
+                        # weights_initializer=slim.xavier_initializer_conv2d(uniform=True), # xavier initialization
+                        weights_initializer=slim.variance_scaling_initializer(),  # He initialization
                         weights_regularizer=slim.l2_regularizer(weight_decay),
                         # weights_regularizer=slim.l1_regularizer(weight_decay),
                         normalizer_fn=slim.batch_norm,
-                        normalizer_params=batch_norm_params):
+                        normalizer_params=batch_norm_params
+                        ):
         with tf.variable_scope('squeezenet', [images], reuse=reuse):
             with slim.arg_scope([slim.batch_norm, slim.dropout], is_training=phase_train):
                 net = slim.conv2d(images, 96, [7, 7], stride=2, scope='conv1')
