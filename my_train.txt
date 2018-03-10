@@ -12,7 +12,7 @@ for N in {1..10}; do python3 ~/PycharmProjects/facenet/src/align/align_dataset_m
 // Run the test
 python3 ~/PycharmProjects/facenet/src/validate_on_lfw.py \
     ~/PycharmProjects/facenet/datasets/lfw/lfw_mtcnnpy_160 \
-    ~/PycharmProjects/facenet/models/facenet/20180204-160909 \
+    ~/PycharmProjects/facenet/models/facenet/20180310-221006 \
     --lfw_pairs ~/PycharmProjects/facenet/data/pairs.txt
 
 
@@ -26,7 +26,7 @@ Area Under Curve (AUC): 1.000
 Equal Error Rate (EER): 0.008
 
 
-// result of 20180303-142138 (SqueenzNet, L1, 60k)
+// result of 20180303-142138 (squeezenet, L1, 60k)
 trainable_vars 108 (elements 1451130, about 5,53M for float32)
 Runnning forward pass on LFW images
 Forward pass duration in 22.730 seconds
@@ -45,7 +45,7 @@ Validation rate: 0.50367+-0.03831 @ FAR=0.00167
 Area Under Curve (AUC): 0.963
 Equal Error Rate (EER): 0.100
 
-// result of 20180204-160909 (squeenznet, VGGFace2)
+// result of 20180204-160909 (squeezenet, VGGFace2)
 trainable_vars 108
 Runnning forward pass on LFW images
 Forward pass duration in 29.841 seconds
@@ -53,6 +53,15 @@ Accuracy: 0.983+-0.008
 Validation rate: 0.91200+-0.01851 @ FAR=0.00133
 Area Under Curve (AUC): 0.998
 Equal Error Rate (EER): 0.018
+
+// result of 20180310-221006 (squeezenet_v1_1, 60k)
+trainable_vars 108 (elements 1438138)
+Forward pass duration in 20.465 seconds
+Accuracy: 0.906+-0.009
+Validation rate: 0.52300+-0.04037 @ FAR=0.00100
+Area Under Curve (AUC): 0.964
+Equal Error Rate (EER): 0.101
+
 
 
 
@@ -75,7 +84,7 @@ python3 ~/PycharmProjects/facenet/src/train_softmax.py \
     --snapshot_at_step -1 \
     --learning_rate -1 \
     --learning_rate_schedule_file ~/PycharmProjects/facenet/data/learning_rate_schedule_classifier_facescrub.txt \
-    --model_def models.squeezenet \
+    --model_def models.squeezenet_v1_1 \
     --optimizer ADAM \
     --max_nrof_epochs 10 \
     --weight_decay 1e-5 \

@@ -71,7 +71,9 @@ def inference(images,
                 net = fire_module(net, 64, 256, scope='fire9')
                 net = slim.dropout(net, keep_probability)
                 net = slim.conv2d(net, 1000, [1, 1], activation_fn=None, normalizer_fn=None, scope='conv10')
+                # global pooling, get (h,w) from net
                 net = slim.avg_pool2d(net, net.get_shape()[1:3], scope='avgpool10')
+                # Removes dimensions of size 1 from the shape of a tensor.
                 net = tf.squeeze(net, [1, 2], name='logits')
                 net = slim.fully_connected(net, bottleneck_layer_size, activation_fn=None, scope='Bottleneck',
                                            reuse=False)
