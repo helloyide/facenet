@@ -72,6 +72,14 @@ sudo find . -size +1M -delete
 // this command can run more times if error found, it will not override the exist output
 for N in {1..10}; do python3 ~/PycharmProjects/facenet/src/align/align_dataset_mtcnn.py ~/PycharmProjects/facenet/datasets/facescrub/raw ~/PycharmProjects/facenet/datasets/facescrub/facescrub_mtcnnpy_182 --image_size 182 --margin 44 --random_order --gpu_memory_fraction 0.1 & done
 
+
+// prepare VGGFace2 train dataset
+for N in {1..10}; do python3 ~/PycharmProjects/facenet/src/align/align_dataset_mtcnn.py ~/PycharmProjects/facenet/datasets/VGGFace2/train ~/PycharmProjects/facenet/datasets/VGGFace2/train_mtcnnpy_182 --image_size 182 --margin 44 --random_order --gpu_memory_fraction 0.1 & done
+// prepare VGGFace2 test dataset
+for N in {1..10}; do python3 ~/PycharmProjects/facenet/src/align/align_dataset_mtcnn.py ~/PycharmProjects/facenet/datasets/VGGFace2/test ~/PycharmProjects/facenet/datasets/VGGFace2/test_mtcnnpy_182 --image_size 182 --margin 44 --random_order --gpu_memory_fraction 0.1 & done
+
+
+
 // train
 // --lfw_dir and --lfw_pairs are optional
 // --optimizer, choices=['ADAGRAD', 'ADADELTA', 'ADAM', 'RMSPROP', 'MOM']
