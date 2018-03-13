@@ -6,13 +6,15 @@ cd
 mkdir -p datasets/lfw/raw
 tar xvf ~/Downloads/lfw.tgz -C datasets/lfw/raw --strip-components=1
 
-// Align the LFW dataset (output size is 160x160, 12 CPU threads)
+// Align the LFW dataset (output size is 160x160, 10 CPU threads)
 for N in {1..10}; do python3 ~/PycharmProjects/facenet/src/align/align_dataset_mtcnn.py ~/PycharmProjects/facenet/datasets/lfw/raw ~/PycharmProjects/facenet/datasets/lfw/lfw_mtcnnpy_160 --image_size 160 --margin 32 --random_order --gpu_memory_fraction 0.1 & done
+// Align the LFW dataset (output size is 227x227, 10 CPU threads)
+for N in {1..10}; do python3 ~/PycharmProjects/facenet/src/align/align_dataset_mtcnn.py ~/PycharmProjects/facenet/datasets/lfw/raw ~/PycharmProjects/facenet/datasets/lfw/lfw_mtcnnpy_227 --image_size 227 --margin 32 --random_order --gpu_memory_fraction 0.1 & done
 
 // Run the test
 python3 ~/PycharmProjects/facenet/src/validate_on_lfw.py \
     ~/PycharmProjects/facenet/datasets/lfw/lfw_mtcnnpy_160 \
-    ~/PycharmProjects/facenet/models/facenet/20180310-221006 \
+    ~/PycharmProjects/facenet/models/facenet/20180313-060011 \
     --lfw_pairs ~/PycharmProjects/facenet/data/pairs.txt
 
 
@@ -72,6 +74,7 @@ sudo find . -size +1M -delete
 // this command can run more times if error found, it will not override the exist output
 for N in {1..10}; do python3 ~/PycharmProjects/facenet/src/align/align_dataset_mtcnn.py ~/PycharmProjects/facenet/datasets/facescrub/raw ~/PycharmProjects/facenet/datasets/facescrub/facescrub_mtcnnpy_182 --image_size 182 --margin 44 --random_order --gpu_memory_fraction 0.1 & done
 
+for N in {1..10}; do python3 ~/PycharmProjects/facenet/src/align/align_dataset_mtcnn.py ~/PycharmProjects/facenet/datasets/facescrub/raw ~/PycharmProjects/facenet/datasets/facescrub/facescrub_mtcnnpy_250 --image_size 250 --margin 44 --random_order --gpu_memory_fraction 0.1 & done
 
 // prepare VGGFace2 train dataset
 for N in {1..10}; do python3 ~/PycharmProjects/facenet/src/align/align_dataset_mtcnn.py ~/PycharmProjects/facenet/datasets/VGGFace2/train ~/PycharmProjects/facenet/datasets/VGGFace2/train_mtcnnpy_182 --image_size 182 --margin 44 --random_order --gpu_memory_fraction 0.1 & done
@@ -105,9 +108,9 @@ python3 ~/PycharmProjects/facenet/src/train_softmax.py \
     --nrof_preprocess_threads 8 \
     --logs_base_dir ~/PycharmProjects/facenet/logs/facenet/ \
     --models_base_dir ~/PycharmProjects/facenet/models/facenet/ \
-    --data_dir ~/PycharmProjects/facenet/datasets/facescrub/facescrub_mtcnnpy_182 \
-    --image_size 160 \
-    --lfw_dir ~/PycharmProjects/facenet/datasets/lfw/lfw_mtcnnpy_160 \
+    --data_dir ~/PycharmProjects/facenet/datasets/facescrub/facescrub_mtcnnpy_250 \
+    --image_size 227 \
+    --lfw_dir ~/PycharmProjects/facenet/datasets/lfw/lfw_mtcnnpy_227 \
     --lfw_pairs ~/PycharmProjects/facenet/data/pairs.txt
 
 //--continue_ckpt_dir ~/PycharmProjects/facenet/models/facenet/20180303-154207 \
@@ -116,6 +119,6 @@ python3 ~/PycharmProjects/facenet/src/train_softmax.py \
 // dump vars for deeplearning.js
 python3 ~/PycharmProjects/facenet/deeplearningjs/dump_checkpoints/dump_checkpoint_vars.py \
     --model_type=tensorflow \
-    --output_dir=~/PycharmProjects/facenet/deeplearningjs/dumped/squeezenet_v1_1_facescrub/ \
-    --checkpoint_file=~/PycharmProjects/facenet/models/facenet/20180310-221006/model-20180310-221006.ckpt-11000
+    --output_dir=~/PycharmProjects/facenet/deeplearningjs/dumped/squeezenet_v1_1_facescrub_with_identity/ \
+    --checkpoint_file=~/PycharmProjects/facenet/models/facenet/20180313-152705/model-20180313-152705.ckpt-11000
 
