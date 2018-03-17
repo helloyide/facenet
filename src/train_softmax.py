@@ -215,8 +215,7 @@ def main(args):
         learning_rate = tf.train.exponential_decay(learning_rate_placeholder, global_step,
                                                    args.learning_rate_decay_epochs * args.epoch_size,
                                                    args.learning_rate_decay_factor, staircase=True)
-        learning_rate_log = tf.log(learning_rate)
-        tf.summary.scalar('learning_rate_log', learning_rate_log)
+        tf.summary.scalar('learning_rate', learning_rate)
 
         # Calculate the average cross entropy loss across the batch
         cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits(
