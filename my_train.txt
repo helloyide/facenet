@@ -14,55 +14,43 @@ for N in {1..10}; do python3 ~/PycharmProjects/facenet/src/align/align_dataset_m
 // Run the test
 python3 ~/PycharmProjects/facenet/src/validate_on_lfw.py \
     ~/PycharmProjects/facenet/datasets/lfw/lfw_mtcnnpy_160 \
-    ~/PycharmProjects/facenet/models/facenet/20180313-060011 \
+    ~/PycharmProjects/facenet/models/facenet/20180317-102618 \
     --lfw_pairs ~/PycharmProjects/facenet/data/pairs.txt
 
 
 // result of 20170512-110547 (Inception-Res-v1, 1M)
 trainable_vars 492 (elements 28490852, about 108,68M for float32)
-Runnning forward pass on LFW images
 Forward pass duration in 29.386 seconds
 Accuracy: 0.992+-0.005
 Validation rate: 0.97633+-0.01433 @ FAR=0.00167
 Area Under Curve (AUC): 1.000
 Equal Error Rate (EER): 0.008
 
-
 // result of 20180303-142138 (squeezenet, L1, 60k)
 trainable_vars 108 (elements 1451130, about 5,53M for float32)
-Runnning forward pass on LFW images
 Forward pass duration in 22.730 seconds
 Accuracy: 0.905+-0.013
 Validation rate: 0.42567+-0.05158 @ FAR=0.00100
 Area Under Curve (AUC): 0.968
 Equal Error Rate (EER): 0.093
 
-
 // result of 20180303-192233 (Inception-Res-v1, 60k)
-trainable_vars 492
-Runnning forward pass on LFW images
-Forward pass duration in 26.978 seconds
 Accuracy: 0.902+-0.011
 Validation rate: 0.50367+-0.03831 @ FAR=0.00167
 Area Under Curve (AUC): 0.963
 Equal Error Rate (EER): 0.100
 
 // result of 20180204-160909 (squeezenet, VGGFace2)
-trainable_vars 108
-Runnning forward pass on LFW images
-Forward pass duration in 29.841 seconds
 Accuracy: 0.983+-0.008
 Validation rate: 0.91200+-0.01851 @ FAR=0.00133
 Area Under Curve (AUC): 0.998
 Equal Error Rate (EER): 0.018
 
-// result of 20180310-221006 (squeezenet_v1_1, 60k)
-trainable_vars 108 (elements 1438138)
-Forward pass duration in 20.465 seconds
-Accuracy: 0.906+-0.009
-Validation rate: 0.52300+-0.04037 @ FAR=0.00100
-Area Under Curve (AUC): 0.964
-Equal Error Rate (EER): 0.101
+// result of 20180317-102618 (squeezenet_v1_1, VGGFace2)
+Accuracy: 0.977+-0.006
+Validation rate: 0.81500+-0.03956 @ FAR=0.00133
+Area Under Curve (AUC): 0.998
+Equal Error Rate (EER): 0.024
 
 
 
@@ -88,32 +76,41 @@ for N in {1..10}; do python3 ~/PycharmProjects/facenet/src/align/align_dataset_m
 // --optimizer, choices=['ADAGRAD', 'ADADELTA', 'ADAM', 'RMSPROP', 'MOM']
 // check nvidia-smi, make sure no other unnecessary applications are using GPU. e.g. Chrome
 // squeezenet, facescrub, image size 160, epochs 10
+
 // change learning rate manually:
-// --learning_rate with a positive value and remove --learning_rate_schedule_file, set --continue_ckpt_dir
+// change learning rate schedule file, its content will be read in each epoch. special value 0.0 means stop at that epoch
+// or stop manually, restart and set --learning_rate with a positive value and set --continue_ckpt_dir
+
 // --snapshot_at_step: take one additional checkpoint at the step, it simplifies the debug on later step
+// --epoch: this is not train on full dataset, it's just a number related to --epoch_size, which means number of batches per epoch
+// TODO: --batch_size higher than 102 no log output? (no memory?)
+
 python3 ~/PycharmProjects/facenet/src/train_softmax.py \
     --snapshot_at_step -1 \
     --learning_rate -1 \
-    --learning_rate_schedule_file ~/PycharmProjects/facenet/data/learning_rate_schedule_classifier_facescrub.txt \
+    --learning_rate_schedule_file ~/PycharmProjects/facenet/data/learning_rate_schedule_vggface2.txt \
     --model_def models.squeezenet_v1_1 \
     --optimizer ADAM \
-    --max_nrof_epochs 10 \
     --weight_decay 1e-5 \
     --keep_probability 0.8 \
     --center_loss_factor 1e-2 \
     --center_loss_alfa 0.9 \
     --epoch_size 1000 \
+    --batch_size 100 \
     --random_crop \
-    --random_flip \
+    --random_rotate \
+    --random_brightness \
+    --data_dir ~/PycharmProjects/facenet/datasets/VGGFace2/train_mtcnnpy_182 \
+    --image_size 160 \
     --nrof_preprocess_threads 8 \
+    --max_nrof_epochs 999 \
+    --lfw_dir ~/PycharmProjects/facenet/datasets/lfw/lfw_mtcnnpy_160 \
+    --lfw_pairs ~/PycharmProjects/facenet/data/pairs.txt \
     --logs_base_dir ~/PycharmProjects/facenet/logs/facenet/ \
     --models_base_dir ~/PycharmProjects/facenet/models/facenet/ \
-    --data_dir ~/PycharmProjects/facenet/datasets/facescrub/facescrub_mtcnnpy_250 \
-    --image_size 227 \
-    --lfw_dir ~/PycharmProjects/facenet/datasets/lfw/lfw_mtcnnpy_227 \
-    --lfw_pairs ~/PycharmProjects/facenet/data/pairs.txt
 
 //--continue_ckpt_dir ~/PycharmProjects/facenet/models/facenet/20180303-154207 \
+// --random_flip \
 
 
 // dump vars for deeplearning.js

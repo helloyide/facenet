@@ -153,6 +153,8 @@ def main(args):
                 # as opposed to decode_jpeg and decode_png, which return 3-D arrays [height, width, num_channels].
                 image = tf.image.decode_image(file_contents, channels=3)
                 # 对训练图片做ensembling
+                # https://www.tensorflow.org/api_docs/python/tf/image
+                # https://www.tensorflow.org/api_docs/python/tf/contrib/image
                 if args.random_rotate:
                     image = tf.py_func(facenet.random_rotate_image, [image], tf.uint8)
                 if args.random_crop:
@@ -162,6 +164,8 @@ def main(args):
                     image = tf.image.resize_image_with_crop_or_pad(image, args.image_size, args.image_size)
                 if args.random_flip:
                     image = tf.image.random_flip_left_right(image)
+                if args.random_brightness:
+                    image = tf.image.random_brightness(image, 0.2)
 
                 # pylint: disable=no-member
                 image.set_shape((args.image_size, args.image_size, 3))
@@ -212,9 +216,12 @@ def main(args):
                                  # args.center_loss_factor center loss论文里的lambda
                                  prelogits_center_loss * args.center_loss_factor)
 
-        learning_rate = tf.train.exponential_decay(learning_rate_placeholder, global_step,
+        learning_rate = tf.train.exponential_decay(learning_rate_placeholder,
+                                                   global_step,
                                                    args.learning_rate_decay_epochs * args.epoch_size,
-                                                   args.learning_rate_decay_factor, staircase=True)
+                                                   args.learning_rate_decay_factor,
+                                                   staircase=True)
+
         tf.summary.scalar('learning_rate', learning_rate)
 
         # Calculate the average cross entropy loss across the batch
@@ -281,6 +288,16 @@ def main(args):
                 step = sess.run(global_step, feed_dict=None)
                 epoch_size = args.epoch_size
                 epoch = step // epoch_size
+
+                if args.learning_rate > 0.0:
+                    lr = args.learning_rate
+                else:
+                    # Read the schedule file each epoch, you can change the file content during running
+                    lr = facenet.get_learning_rate_from_file(args.learning_rate_schedule_file, epoch)
+                    # Special value means stop
+                    if lr == 0.0:
+                        break
+
                 # Train for one epoch
                 train(args,
                       sess,
@@ -300,7 +317,7 @@ def main(args):
                       summary_op,
                       summary_writer,
                       regularization_losses,
-                      args.learning_rate_schedule_file,
+                      lr,
                       snapshot_at_step,
                       saver,
                       model_dir,
@@ -381,18 +398,13 @@ def train(args,
           summary_op,
           summary_writer,
           regularization_losses,
-          learning_rate_schedule_file,
+          learning_rate,
           snapshot_at_step,
           saver,
           model_dir,
           subdir
           ):
     batch_number = 0
-
-    if args.learning_rate > 0.0:
-        lr = args.learning_rate
-    else:
-        lr = facenet.get_learning_rate_from_file(learning_rate_schedule_file, epoch)
 
     index_epoch = sess.run(index_dequeue_op)
     label_epoch = np.array(label_list)[index_epoch]
@@ -407,7 +419,7 @@ def train(args,
     train_time = 0
     while batch_number < args.epoch_size:
         start_time = time.time()
-        feed_dict = {learning_rate_placeholder: lr,
+        feed_dict = {learning_rate_placeholder: learning_rate,
                      phase_train_placeholder: True,
                      batch_size_placeholder: args.batch_size}
 
@@ -417,7 +429,7 @@ def train(args,
                 [total_loss, train_op, global_step, regularization_losses, summary_op], feed_dict=feed_dict)
             summary_writer.add_summary(summary_str, global_step=step)
             print('Epoch: [%d][%d/%d][%d]\tTotalLoss %2.3f\tRegLoss %2.3f\tLearningRate %f' %
-                  (epoch, batch_number + 1, args.epoch_size, step, err, np.sum(reg_loss), lr))
+                  (epoch, batch_number + 1, args.epoch_size, step, err, np.sum(reg_loss), learning_rate))
         else:
             err, _, step, reg_loss = sess.run(
                 [total_loss, train_op, global_step, regularization_losses], feed_dict=feed_dict)
@@ -556,6 +568,8 @@ def parse_arguments(argv):
                         help='Performs random horizontal flipping of training images.', action='store_true')
     parser.add_argument('--random_rotate',
                         help='Performs random rotations of training images.', action='store_true')
+    parser.add_argument('--random_brightness',
+                        help='Performs random brightness of training images.', action='store_true')
     parser.add_argument('--keep_probability', type=float,
                         help='Keep probability of dropout for the fully connected layer(s).', default=1.0)
     parser.add_argument('--weight_decay', type=float,
@@ -572,7 +586,7 @@ def parse_arguments(argv):
     parser.add_argument('--learning_rate_decay_epochs', type=int,
                         help='Number of epochs between learning rate decay.', default=100)
     parser.add_argument('--learning_rate_decay_factor', type=float,
-                        help='Learning rate decay factor.', default=1.0)
+                        help='Learning rate decay factor. (decay disabled by default)', default=1.0)
     parser.add_argument('--moving_average_decay', type=float,
                         help='Exponential decay for tracking of training parameters.', default=0.9999)
     parser.add_argument('--seed', type=int,
