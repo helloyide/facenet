@@ -579,7 +579,7 @@ def parse_arguments(argv):
     parser.add_argument('--weight_decay', type=float,
                         help='L2 weight regularization.', default=0.0)
     parser.add_argument('--center_loss_factor', type=float,
-                        help='Center loss factor.', default=0.0)
+                        help='Center loss factor. The lambda in paper', default=0.0)
     parser.add_argument('--center_loss_alfa', type=float,
                         help='Center update rate for center loss.', default=0.95)
     parser.add_argument('--optimizer', type=str, choices=['ADAGRAD', 'ADADELTA', 'ADAM', 'RMSPROP', 'MOM'],

@@ -52,6 +52,13 @@ Validation rate: 0.81500+-0.03956 @ FAR=0.00133
 Area Under Curve (AUC): 0.998
 Equal Error Rate (EER): 0.024
 
+// result of 20180317-202031 (squeezenet_v1_1, VGGFace2)
+Accuracy: 0.976+-0.007
+Precision: 0.982+-0.004
+Recall: 0.969+-0.015
+Validation rate: 0.82867+-0.04045 @ FAR=0.00133
+Area Under Curve (AUC): 0.997
+Equal Error Rate (EER): 0.024
 
 
 
@@ -91,13 +98,14 @@ python3 ~/PycharmProjects/facenet/src/train_softmax.py \
     --learning_rate_schedule_file ~/PycharmProjects/facenet/data/learning_rate_schedule_vggface2.txt \
     --model_def models.squeezenet_v1_1 \
     --optimizer ADAM \
-    --weight_decay 1e-5 \
+    --weight_decay 2e-5 \
     --keep_probability 0.8 \
-    --center_loss_factor 1e-2 \
+    --center_loss_factor 2e-2 \
     --center_loss_alfa 0.9 \
     --epoch_size 1000 \
     --batch_size 100 \
     --random_crop \
+    --random_flip \
     --random_rotate \
     --random_brightness \
     --data_dir ~/PycharmProjects/facenet/datasets/VGGFace2/train_mtcnnpy_182 \
@@ -110,7 +118,7 @@ python3 ~/PycharmProjects/facenet/src/train_softmax.py \
     --models_base_dir ~/PycharmProjects/facenet/models/facenet/ \
 
 //--continue_ckpt_dir ~/PycharmProjects/facenet/models/facenet/20180303-154207 \
-// --random_flip \
+
 
 
 // dump vars for deeplearning.js
