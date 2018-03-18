@@ -90,7 +90,9 @@ for N in {1..10}; do python3 ~/PycharmProjects/facenet/src/align/align_dataset_m
 
 // --snapshot_at_step: take one additional checkpoint at the step, it simplifies the debug on later step
 // --epoch: this is not train on full dataset, it's just a number related to --epoch_size, which means number of batches per epoch
-// TODO: --batch_size higher than 102 no log output? (no memory?)
+// TODO: --batch_size higher than 102 no log output? (no memory?),
+// TODO: also args.batch_size * args.epoch_size too big has same issue,
+// TODO: could be a problem from index_queue.dequeue_many(args.batch_size * args.epoch_size, 'index_dequeue')
 
 python3 ~/PycharmProjects/facenet/src/train_softmax.py \
     --snapshot_at_step -1 \
@@ -102,15 +104,17 @@ python3 ~/PycharmProjects/facenet/src/train_softmax.py \
     --keep_probability 0.8 \
     --center_loss_factor 2e-2 \
     --center_loss_alfa 0.9 \
-    --epoch_size 1000 \
-    --batch_size 100 \
     --random_crop \
     --random_flip \
     --random_rotate \
     --random_brightness \
+    --lfw_epoch_interval 5 \
+    --summary_iteration_interval 200 \
     --data_dir ~/PycharmProjects/facenet/datasets/VGGFace2/train_mtcnnpy_182 \
     --image_size 160 \
     --nrof_preprocess_threads 8 \
+    --epoch_size 1000 \
+    --batch_size 100 \
     --max_nrof_epochs 999 \
     --lfw_dir ~/PycharmProjects/facenet/datasets/lfw/lfw_mtcnnpy_160 \
     --lfw_pairs ~/PycharmProjects/facenet/data/pairs.txt \

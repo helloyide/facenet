@@ -328,22 +328,23 @@ def main(args):
                 save_variables_and_metagraph(sess, saver, summary_writer, model_dir, subdir, step + epoch_size)
 
                 # Evaluate on LFW
-                if args.lfw_dir:
-                    evaluate(sess,
-                             enqueue_op,
-                             image_paths_placeholder,
-                             labels_placeholder,
-                             phase_train_placeholder,
-                             batch_size_placeholder,
-                             embeddings,
-                             label_batch,
-                             lfw_paths,
-                             actual_issame,
-                             args.lfw_batch_size,
-                             args.lfw_nrof_folds,
-                             log_dir,
-                             step,
-                             summary_writer)
+                if args.lfw_dir and args.lfw_epoch_interval > 0:
+                    if epoch % args.lfw_epoch_interval == 0:
+                        evaluate(sess,
+                                 enqueue_op,
+                                 image_paths_placeholder,
+                                 labels_placeholder,
+                                 phase_train_placeholder,
+                                 batch_size_placeholder,
+                                 embeddings,
+                                 label_batch,
+                                 lfw_paths,
+                                 actual_issame,
+                                 args.lfw_batch_size,
+                                 args.lfw_nrof_folds,
+                                 log_dir,
+                                 step,
+                                 summary_writer)
 
                 # Print current time
                 print("Current date time:", datetime.strftime(datetime.now(), '%Y%m%d-%H%M%S'))
@@ -427,8 +428,12 @@ def train(args,
                      phase_train_placeholder: True,
                      batch_size_placeholder: args.batch_size}
 
-        # 每100个iteration记录一次summary
-        if batch_number % 100 == 0:
+        # 每200个iteration记录一次summary
+        interval = args.summary_iteration_interval
+        if interval >= args.epoch_size:
+            interval = args.epoch_size - 1
+
+        if batch_number % interval == 0:
             err, _, step, reg_loss, summary_str = sess.run(
                 [total_loss, train_op, global_step, regularization_losses, summary_op], feed_dict=feed_dict)
             summary_writer.add_summary(summary_str, global_step=step)
@@ -447,7 +452,6 @@ def train(args,
         batch_number += 1
         train_time += duration
 
-    # Add validation loss and accuracy to summary
     summary = tf.Summary()
     # pylint: disable=maybe-no-member
     summary.value.add(tag='time/total', simple_value=train_time)
@@ -608,8 +612,12 @@ def parse_arguments(argv):
                         help='Keep only the percentile images closed to its class center', default=100.0)
     parser.add_argument('--filter_min_nrof_images_per_class', type=int,
                         help='Keep only the classes with this number of examples or more', default=0)
+    parser.add_argument('--summary_iteration_interval', type=int,
+                        help='How often record a summary, the value must be less than --epoch_size', default=100)
 
     # Parameters for validation on LFW
+    parser.add_argument('--lfw_epoch_interval', type=int,
+                        help='How often check lfw. (default: each epoch)', default=1)
     parser.add_argument('--lfw_pairs', type=str,
                         help='The file containing the pairs to use for validation.', default='data/pairs.txt')
     parser.add_argument('--lfw_file_ext', type=str,
@@ -620,6 +628,7 @@ def parse_arguments(argv):
                         help='Number of images to process in a batch in the LFW test set.', default=100)
     parser.add_argument('--lfw_nrof_folds', type=int,
                         help='Number of folds to use for cross validation. Mainly used for testing.', default=10)
+
     return parser.parse_args(argv)
 
 
