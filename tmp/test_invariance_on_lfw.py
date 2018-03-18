@@ -154,7 +154,7 @@ def evaluate_accuracy(sess, images_placeholder, phase_train_placeholder, image_s
     thresholds = np.arange(0, 4, 0.01)
     embeddings1 = emb_array[0::2]
     embeddings2 = emb_array[1::2]
-    _, _, _, accuracy = facenet.calculate_roc(thresholds, embeddings1, embeddings2, np.asarray(actual_issame), seed)
+    _, _, _, _, accuracy = facenet.calculate_roc(thresholds, embeddings1, embeddings2, np.asarray(actual_issame), seed)
     return accuracy
 
 def scale_images(images, scale, image_size):

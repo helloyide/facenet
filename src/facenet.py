@@ -492,8 +492,9 @@ def calculate_roc(thresholds, embeddings1, embeddings2, actual_issame, nrof_fold
 
     tprs = np.zeros((nrof_folds, nrof_thresholds))
     fprs = np.zeros((nrof_folds, nrof_thresholds))
-    ppvs = np.zeros((nrof_folds, nrof_thresholds))
     accuracy = np.zeros((nrof_folds))
+    precision = np.zeros((nrof_folds))
+    recall = np.zeros((nrof_folds))
 
     diff = np.subtract(embeddings1, embeddings2)
     dist = np.sum(np.square(diff), 1)
@@ -507,13 +508,13 @@ def calculate_roc(thresholds, embeddings1, embeddings2, actual_issame, nrof_fold
             _, _, _, acc_train[threshold_idx] = calculate_accuracy(threshold, dist[train_set], actual_issame[train_set])
         best_threshold_index = np.argmax(acc_train)
         for threshold_idx, threshold in enumerate(thresholds):
-            tprs[fold_idx, threshold_idx], fprs[fold_idx, threshold_idx], ppvs[fold_idx, threshold_idx], _ = calculate_accuracy(threshold,
-                                                                                                 dist[test_set],
-                                                                                                 actual_issame[
-                                                                                                     test_set])
-        _, _, _, accuracy[fold_idx] = calculate_accuracy(thresholds[best_threshold_index], dist[test_set],
-                                                      actual_issame[test_set])
-    return tprs, fprs, ppvs, accuracy
+            tprs[fold_idx, threshold_idx], fprs[fold_idx, threshold_idx], _, _ = calculate_accuracy(threshold, dist[test_set], actual_issame[test_set])
+        recall[fold_idx], _, precision[fold_idx], accuracy[fold_idx] = calculate_accuracy(thresholds[best_threshold_index], dist[test_set], actual_issame[test_set])
+
+    tpr = np.mean(tprs, 0)
+    fpr = np.mean(fprs, 0)
+
+    return tpr, fpr, recall, precision, accuracy
 
 
 def calculate_accuracy(threshold, dist, actual_issame):
@@ -526,7 +527,6 @@ def calculate_accuracy(threshold, dist, actual_issame):
     # https://en.wikipedia.org/wiki/Precision_and_recall
     # TPR = Recall
     tpr = 0 if (tp + fn == 0) else float(tp) / float(tp + fn)
-    # FPR = Fall-out
     fpr = 0 if (fp + tn == 0) else float(fp) / float(fp + tn)
     # Positive predictive value = Precision
     ppv = 0 if (tp + fp == 0) else float(tp) / float(tp + fp)

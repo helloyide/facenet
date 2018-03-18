@@ -494,7 +494,7 @@ def evaluate(sess,
     assert np.array_equal(lab_array, np.arange(
         nrof_images)) == True, 'Wrong labels used for evaluation, possibly caused by training examples left in the input pipeline'
 
-    _, _, _, accuracy, val, val_std, far = lfw.evaluate(emb_array, actual_issame, nrof_folds=nrof_folds)
+    _, _, _, _, accuracy, val, val_std, far = lfw.evaluate(emb_array, actual_issame, nrof_folds=nrof_folds)
 
     print('Accuracy: %1.3f+-%1.3f' % (np.mean(accuracy), np.std(accuracy)))
     print('Validation rate: %2.5f+-%2.5f @ FAR=%2.5f' % (val, val_std, far))

@@ -56,26 +56,27 @@ def main(args):
 
             # Load the model
             facenet.load_model(args.model)
+
             # TODO: replace near 0 parameters to 0
-            trainable_vars = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES)
+            # trainable_vars = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES)
 
-            print("trainable_vars", len(trainable_vars))
-            zero_threshold = 1e-2
-            n_var_elements = 0
-            n_non_zero = 0
-            n_non_zero_after = 0
-            assign_ops = []
-            for var in trainable_vars:
-                matrix = var.eval(sess)
-                # if var.name.endswith("weights:0"):
-                #     print(matrix)
-                n_var_elements += np.size(matrix)
-                n_non_zero += np.count_nonzero(matrix)
-                # matrix[np.abs(matrix)<=zero_threshold] = 0
-                # n_non_zero_after += np.count_nonzero(matrix)
-                # assign_ops.append(var.assign(matrix))
-
-            print("non_zero: ",n_non_zero,n_var_elements,n_non_zero/n_var_elements)
+            # print("trainable_vars", len(trainable_vars))
+            # zero_threshold = 1e-2
+            # n_var_elements = 0
+            # n_non_zero = 0
+            # n_non_zero_after = 0
+            # assign_ops = []
+            # for var in trainable_vars:
+            #     matrix = var.eval(sess)
+            #     # if var.name.endswith("weights:0"):
+            #     #     print(matrix)
+            #     n_var_elements += np.size(matrix)
+            #     n_non_zero += np.count_nonzero(matrix)
+            #     # matrix[np.abs(matrix)<=zero_threshold] = 0
+            #     # n_non_zero_after += np.count_nonzero(matrix)
+            #     # assign_ops.append(var.assign(matrix))
+            #
+            # print("non_zero: ",n_non_zero,n_var_elements,n_non_zero/n_var_elements)
             # print("non_zero after: ",n_non_zero_after,n_var_components,n_non_zero_after/n_var_components)
 
             # sess.run(assign_ops)
@@ -110,15 +111,11 @@ def main(args):
             duration = time.time() - start_time
             print('Forward pass duration in %.3f seconds' % duration)
 
-            tprs, fprs, ppvs, accuracy, val, val_std, far = lfw.evaluate(emb_array, actual_issame, nrof_folds=args.lfw_nrof_folds)
-
-            tpr = np.mean(tprs, 0)
-            fpr = np.mean(fprs, 0)
-            ppv = np.mean(ppvs, 0)
+            tpr, fpr, recall, precision, accuracy, val, val_std, far = lfw.evaluate(emb_array, actual_issame, nrof_folds=args.lfw_nrof_folds)
 
             print('Accuracy: %1.3f+-%1.3f' % (np.mean(accuracy), np.std(accuracy)))
-            print('Precision: %1.3f+-%1.3f' % (ppv, np.std(ppvs)))
-            print('Recall: %1.3f+-%1.3f' % (tpr, np.std(tprs)))
+            print('Precision: %1.3f+-%1.3f' % (np.mean(precision), np.std(precision)))
+            print('Recall: %1.3f+-%1.3f' % (np.mean(recall), np.std(recall)))
             print('Validation rate: %2.5f+-%2.5f @ FAR=%2.5f' % (val, val_std, far))
 
             auc = metrics.auc(fpr, tpr)
