@@ -165,7 +165,7 @@ def main(args):
                 if args.random_flip:
                     image = tf.image.random_flip_left_right(image)
                 if args.random_brightness:
-                    image = tf.image.random_brightness(image, 0.2)
+                    image = tf.image.random_brightness(image, max_delta=0.2)
 
                 # pylint: disable=no-member
                 image.set_shape((args.image_size, args.image_size, 3))
@@ -344,6 +344,10 @@ def main(args):
                              log_dir,
                              step,
                              summary_writer)
+
+                # Print current time
+                print("Current date time:", datetime.strftime(datetime.now(), '%Y%m%d-%H%M%S'))
+
     return model_dir
 
 
@@ -490,7 +494,7 @@ def evaluate(sess,
     assert np.array_equal(lab_array, np.arange(
         nrof_images)) == True, 'Wrong labels used for evaluation, possibly caused by training examples left in the input pipeline'
 
-    _, _, accuracy, val, val_std, far = lfw.evaluate(emb_array, actual_issame, nrof_folds=nrof_folds)
+    _, _, _, accuracy, val, val_std, far = lfw.evaluate(emb_array, actual_issame, nrof_folds=nrof_folds)
 
     print('Accuracy: %1.3f+-%1.3f' % (np.mean(accuracy), np.std(accuracy)))
     print('Validation rate: %2.5f+-%2.5f @ FAR=%2.5f' % (val, val_std, far))
@@ -567,9 +571,9 @@ def parse_arguments(argv):
     parser.add_argument('--random_flip',
                         help='Performs random horizontal flipping of training images.', action='store_true')
     parser.add_argument('--random_rotate',
-                        help='Performs random rotations of training images.', action='store_true')
+                        help='Performs random rotations of training images. (+-10 degrees)', action='store_true')
     parser.add_argument('--random_brightness',
-                        help='Performs random brightness of training images.', action='store_true')
+                        help='Performs random brightness of training images. (max_delta=0.2)', action='store_true')
     parser.add_argument('--keep_probability', type=float,
                         help='Keep probability of dropout for the fully connected layer(s).', default=1.0)
     parser.add_argument('--weight_decay', type=float,

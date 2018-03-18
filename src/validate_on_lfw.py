@@ -110,15 +110,22 @@ def main(args):
             duration = time.time() - start_time
             print('Forward pass duration in %.3f seconds' % duration)
 
-            tpr, fpr, accuracy, val, val_std, far = lfw.evaluate(emb_array, actual_issame, nrof_folds=args.lfw_nrof_folds)
+            tprs, fprs, ppvs, accuracy, val, val_std, far = lfw.evaluate(emb_array, actual_issame, nrof_folds=args.lfw_nrof_folds)
+
+            tpr = np.mean(tprs, 0)
+            fpr = np.mean(fprs, 0)
+            ppv = np.mean(ppvs, 0)
 
             print('Accuracy: %1.3f+-%1.3f' % (np.mean(accuracy), np.std(accuracy)))
+            print('Precision: %1.3f+-%1.3f' % (ppv, np.std(ppvs)))
+            print('Recall: %1.3f+-%1.3f' % (tpr, np.std(tprs)))
             print('Validation rate: %2.5f+-%2.5f @ FAR=%2.5f' % (val, val_std, far))
 
             auc = metrics.auc(fpr, tpr)
             print('Area Under Curve (AUC): %1.3f' % auc)
             eer = brentq(lambda x: 1. - x - interpolate.interp1d(fpr, tpr)(x), 0., 1.)
             print('Equal Error Rate (EER): %1.3f' % eer)
+
 
 def parse_arguments(argv):
     parser = argparse.ArgumentParser()
