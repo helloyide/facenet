@@ -276,7 +276,7 @@ def main(args):
                 latest_checkpoint = tf.train.latest_checkpoint(continue_ckpt_dir)
                 print('Restoring checkpoint: %s' % latest_checkpoint)
                 saver.restore(sess, latest_checkpoint)
-                # TODO: don't now why global_step is not saved. get it from the filename
+                # TODO: don't know why global_step is not saved. get it from the filename
                 last_step = int(os.path.basename(latest_checkpoint).split('-')[-1])
                 print('Checkpoint restored, last step is ', str(last_step))
                 sess.run(global_step.assign(last_step))
