@@ -73,7 +73,7 @@ def main(args):
     train_set = []
     for data_dir in data_dirs:
         if len(data_dir) > 0:
-            train_set.extend(facenet.get_dataset(args.data_dir))
+            train_set.extend(facenet.get_dataset(data_dir))
 
     if args.filter_filename:
         train_set = filter_dataset(train_set, os.path.expanduser(args.filter_filename),
