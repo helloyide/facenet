@@ -66,7 +66,15 @@ def main(args):
 
     np.random.seed(seed=args.seed)
     random.seed(args.seed)
-    train_set = facenet.get_dataset(args.data_dir)
+
+    # args.data_dir can contain more datasets, separated by comma
+    # TODO: no logic for name conflict?
+    data_dirs = args.data_dir.split(",")
+    train_set = []
+    for data_dir in data_dirs:
+        if len(data_dir) > 0:
+            train_set.extend(facenet.get_dataset(args.data_dir))
+
     if args.filter_filename:
         train_set = filter_dataset(train_set, os.path.expanduser(args.filter_filename),
                                    args.filter_percentile, args.filter_min_nrof_images_per_class)
@@ -553,7 +561,7 @@ def parse_arguments(argv):
     parser.add_argument('--snapshot_at_step', type=int,
                         help='Take one additional checkpoint at the step, it simplifies the debug on later step')
     parser.add_argument('--data_dir', type=str,
-                        help='Path to the data directory containing aligned face patches.',
+                        help='Path to the data directory containing aligned face patches. Could be more, separated by comma.',
                         default='~/datasets/casia/casia_maxpy_mtcnnalign_182_160')
     parser.add_argument('--model_def', type=str,
                         help='Model definition. Points to a module containing the definition of the inference graph.',

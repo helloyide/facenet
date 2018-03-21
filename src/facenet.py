@@ -382,7 +382,7 @@ class ImageClass():
 def get_dataset(path, has_class_directories=True):
     """
     搜索路径参数的子目录, 每个子目录代表一个人名, 也就是对应一个类
-    :return: 返回一个ImageClass数组, 每个ImageClass封装了类(人名)和它训练图片的路径
+    :return: array of ImageClass, each ImageClass contains class name (sub folder name) and images paths
     """
     dataset = []
     path_exp = os.path.expanduser(path)
@@ -400,6 +400,10 @@ def get_dataset(path, has_class_directories=True):
 
 
 def get_image_paths(facedir):
+    """
+    consider all files under facedir as images
+    @:returns image path list
+    """
     image_paths = []
     if os.path.isdir(facedir):
         images = os.listdir(facedir)

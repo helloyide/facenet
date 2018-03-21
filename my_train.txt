@@ -14,7 +14,7 @@ for N in {1..10}; do python3 ~/PycharmProjects/facenet/src/align/align_dataset_m
 // Run the test
 python3 ~/PycharmProjects/facenet/src/validate_on_lfw.py \
     ~/PycharmProjects/facenet/datasets/lfw/lfw_mtcnnpy_160 \
-    ~/PycharmProjects/facenet/models/facenet/20180204-160909 \
+    ~/PycharmProjects/facenet/models/facenet/20180320-063922 \
     --lfw_pairs ~/PycharmProjects/facenet/data/pairs.txt
 
 
@@ -48,12 +48,6 @@ Validation rate: 0.91200+-0.01851 @ FAR=0.00133
 Area Under Curve (AUC): 0.998
 Equal Error Rate (EER): 0.018
 
-// result of 20180317-102618 (squeezenet_v1_1, VGGFace2)
-Accuracy: 0.977+-0.006
-Validation rate: 0.81500+-0.03956 @ FAR=0.00133
-Area Under Curve (AUC): 0.998
-Equal Error Rate (EER): 0.024
-
 // result of 20180317-202031 (squeezenet_v1_1, VGGFace2)
 Accuracy: 0.976+-0.007
 Precision: 0.982+-0.004
@@ -69,6 +63,14 @@ Recall: 0.979+-0.008
 Validation rate: 0.83600+-0.04038 @ FAR=0.00100
 Area Under Curve (AUC): 0.998
 Equal Error Rate (EER): 0.022
+
+// result of 20180319-070547 (squeezenet_v1_1, VGGFace2)
+Accuracy: 0.977+-0.005
+Precision: 0.978+-0.007
+Recall: 0.976+-0.012
+Validation rate: 0.90233+-0.01592 @ FAR=0.00133
+Area Under Curve (AUC): 0.997
+Equal Error Rate (EER): 0.023
 
 
 
@@ -109,7 +111,7 @@ python3 ~/PycharmProjects/facenet/src/train_softmax.py \
     --learning_rate -1 \
     --learning_rate_schedule_file ~/PycharmProjects/facenet/data/learning_rate_schedule_vggface2.txt \
     --model_def models.squeezenet_v1_1 \
-    --optimizer ADAM \
+    --optimizer MOM \
     --weight_decay 1e-5 \
     --keep_probability 0.8 \
     --center_loss_factor 2e-2 \
@@ -131,7 +133,7 @@ python3 ~/PycharmProjects/facenet/src/train_softmax.py \
     --logs_base_dir ~/PycharmProjects/facenet/logs/facenet/ \
     --models_base_dir ~/PycharmProjects/facenet/models/facenet/ \
 
-//--continue_ckpt_dir ~/PycharmProjects/facenet/models/facenet/20180303-154207 \
+//--continue_ckpt_dir ~/PycharmProjects/facenet/models/facenet/20180319-070547 \
 
 
 
