@@ -14,7 +14,7 @@ for N in {1..10}; do python3 ~/PycharmProjects/facenet/src/align/align_dataset_m
 // Run the test
 python3 ~/PycharmProjects/facenet/src/validate_on_lfw.py \
     ~/PycharmProjects/facenet/datasets/lfw/lfw_mtcnnpy_160 \
-    ~/PycharmProjects/facenet/models/facenet/20180320-080617 \
+    ~/PycharmProjects/facenet/models/facenet/20180322-001311 \
     --lfw_pairs ~/PycharmProjects/facenet/data/pairs.txt
 
 
@@ -80,6 +80,21 @@ Validation rate: 0.90567+-0.02508 @ FAR=0.00167
 Area Under Curve (AUC): 0.998
 Equal Error Rate (EER): 0.020
 
+// 20180321-073554 (squeezenet_v1_1, VGGFace2+60k)
+Accuracy: 0.976+-0.004
+Precision: 0.982+-0.008
+Recall: 0.970+-0.014
+Validation rate: 0.90467+-0.01668 @ FAR=0.00133
+Area Under Curve (AUC): 0.998
+Equal Error Rate (EER): 0.022
+
+// 20180322-001311
+Accuracy: 0.978+-0.004
+Precision: 0.985+-0.009
+Recall: 0.972+-0.017
+Validation rate: 0.91067+-0.02274 @ FAR=0.00133
+Area Under Curve (AUC): 0.998
+Equal Error Rate (EER): 0.020
 
 
 // prepare facescrub training dataset
@@ -130,7 +145,7 @@ python3 ~/PycharmProjects/facenet/src/train_softmax.py \
     --random_brightness \
     --lfw_epoch_interval 5 \
     --summary_iteration_interval 200 \
-    --data_dir ~/PycharmProjects/facenet/datasets/VGGFace2/train_mtcnnpy_182,~/PycharmProjects/facenet/datasets/facescrub/facescrub_mtcnnpy_182 \
+    --data_dir ~/PycharmProjects/facenet/datasets/VGGFace2/train_mtcnnpy_182 \
     --image_size 160 \
     --nrof_preprocess_threads 8 \
     --epoch_size 1000 \
@@ -141,13 +156,13 @@ python3 ~/PycharmProjects/facenet/src/train_softmax.py \
     --logs_base_dir ~/PycharmProjects/facenet/logs/facenet/ \
     --models_base_dir ~/PycharmProjects/facenet/models/facenet/ \
 
-//--continue_ckpt_dir ~/PycharmProjects/facenet/models/facenet/20180319-070547 \
+//--continue_ckpt_dir ~/PycharmProjects/facenet/models/facenet/20180320-080617 \
 
 
 
 // dump vars for deeplearning.js
 python3 ~/PycharmProjects/facenet/deeplearningjs/dump_checkpoints/dump_checkpoint_vars.py \
     --model_type=tensorflow \
-    --output_dir=~/PycharmProjects/facenet/deeplearningjs/dumped/squeezenet_v1_1_facescrub_with_identity/ \
-    --checkpoint_file=~/PycharmProjects/facenet/models/facenet/20180313-152705/model-20180313-152705.ckpt-11000
+    --output_dir=~/PycharmProjects/facenet/deeplearningjs/dumped/squeezenet_v1_1_vggface2/ \
+    --checkpoint_file=~/PycharmProjects/facenet/models/facenet/20180322-001311/model-20180322-001311.ckpt-271000
 
