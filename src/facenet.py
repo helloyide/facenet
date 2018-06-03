@@ -222,6 +222,8 @@ def train(total_loss,
             opt = tf.train.RMSPropOptimizer(learning_rate, decay=0.9, momentum=0.9, epsilon=1.0)
         elif optimizer == 'MOM':
             opt = tf.train.MomentumOptimizer(learning_rate, 0.9, use_nesterov=True)
+        elif optimizer == 'FTRL':
+            opt = tf.train.FtrlOptimizer(learning_rate)
         else:
             raise ValueError('Invalid optimization algorithm')
 

@@ -594,7 +594,7 @@ def parse_arguments(argv):
                         help='Center loss factor. The lambda in paper', default=0.0)
     parser.add_argument('--center_loss_alfa', type=float,
                         help='Center update rate for center loss.', default=0.95)
-    parser.add_argument('--optimizer', type=str, choices=['ADAGRAD', 'ADADELTA', 'ADAM', 'RMSPROP', 'MOM'],
+    parser.add_argument('--optimizer', type=str, choices=['ADAGRAD', 'ADADELTA', 'ADAM', 'RMSPROP', 'MOM', 'FTRL'],
                         help='The optimization algorithm to use', default='ADAM')
     parser.add_argument('--learning_rate', type=float,
                         help='Initial learning rate. If set to a negative value a learning rate ' +
