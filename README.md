@@ -24,8 +24,11 @@ Most of these changes are done in train_softmax.py:
 
 The learning rate can be adjusted manually either by changing the schedule file on the fly (the file content is read in each epoch, train will be stopped if a 0 learning rate is found) or by changing the "--learning_rate" and continue the training with "--continue_ckpt_dir".
 
+
 ## SqueezeNet v1.1
-TODO
+The authors of the original paper improved the SqueezeNet, based on their web page, [SqueezeNet_v1.1](https://github.com/DeepScale/SqueezeNet/tree/master/SqueezeNet_v1.1) should be much faster than the original one.
+
+The implementation is src/models/squeezenet_v1_1.py which is based on src/models/squeezenet.py with new network structure. It also uses He weights initialization instead of Xavier. 
 
 
 ## Pre-trained models
