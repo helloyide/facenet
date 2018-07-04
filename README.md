@@ -40,6 +40,7 @@ The implementation is src/models/squeezenet_v1_1.py which is based on src/models
 
 
 ## New contributed scripts and other changes 
+* contributed/tensorflow_js_demo.zip: demo project for face recognition with tensorflow.js on browser (requires webcam, nodejs, pre-trained tensorflow.js models)
 * contributed/photo_face_recognition.py: draw face recognition boxes on a single photo
 * contributed/vggface2_gender.py: use vggface2 embedding feature vectors to train a gender classifier
 * src/validate_on_lfw.py: add Precision and Recall measure in lfw validation
