@@ -1,4 +1,4 @@
-# Face Recognition using Tensorflow 
+# Face Recognition using Tensorflow and Tensorflow.js
 
 This project is forked from [davidsandberg/facenet](https://github.com/davidsandberg/facenet), which is a TensorFlow implementation of the face recognizer described in the papers
 ["FaceNet: A Unified Embedding for Face Recognition and Clustering"](http://arxiv.org/abs/1503.03832), ["A Discriminative Feature Learning Approach for Deep Face Recognition"](http://ydwen.github.io/papers/WenECCV16.pdf), ["Deep Face Recognition"](http://www.robots.ox.ac.uk/~vgg/publications/2015/Parkhi15/parkhi15.pdf).
@@ -35,7 +35,7 @@ The implementation is src/models/squeezenet_v1_1.py which is based on src/models
 | Model           | LFW accuracy | Training dataset | Architecture |
 |-----------------|--------------|------------------|-------------|
 | [squeezenet_10_vggface2 (tensorflow.js)](https://github.com/helloyide/facenet/tree/master/deeplearningjs/dumped/squeezenet_10_vggface2) |         | VGGFace2    | SqueezeNet |
-| [squeezenet_v1_1_vggface2 (tensorflow.js)](https://github.com/helloyide/facenet/tree/master/deeplearningjs/dumped/squeezenet_v1_1_vggface2) |         | VGGFace2    | SqueezeNet 1.1 |
+| [squeezenet_v1_1_vggface2 (tensorflow.js)](https://github.com/helloyide/facenet/tree/master/deeplearningjs/dumped/squeezenet_v1_1_vggface2) |         | VGGFace2    | SqueezeNet v1.1 |
 | [20170512-110547](https://drive.google.com/file/d/0B5MzpY9kBtDVZ2RpVDYwWmxoSUk) | 0.992        | MS-Celeb-1M      | [Inception ResNet v1](https://github.com/davidsandberg/facenet/blob/master/src/models/inception_resnet_v1.py) |
 
 
