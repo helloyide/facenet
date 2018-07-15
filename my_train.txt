@@ -26,32 +26,6 @@ Validation rate: 0.97633+-0.01433 @ FAR=0.00167
 Area Under Curve (AUC): 1.000
 Equal Error Rate (EER): 0.008
 
-// result of 20180204-160909 (squeezenet, VGGFace2)
-trainable_vars 108 (elements 1451130, about 5,53M for float32)
-Forward pass duration in 22.730 seconds
-Accuracy: 0.983+-0.008
-Precision: 0.988+-0.006
-Recall: 0.978+-0.014
-Validation rate: 0.91200+-0.01851 @ FAR=0.00133
-Area Under Curve (AUC): 0.998
-Equal Error Rate (EER): 0.018
-
-// result of 20180318-111845 (squeezenet_v1_1, VGGFace2)
-Accuracy: 0.978+-0.005
-Precision: 0.978+-0.010
-Recall: 0.979+-0.008
-Validation rate: 0.83600+-0.04038 @ FAR=0.00100
-Area Under Curve (AUC): 0.998
-Equal Error Rate (EER): 0.022
-
-// result of 20180319-070547 (squeezenet_v1_1, VGGFace2)
-Accuracy: 0.977+-0.005
-Precision: 0.978+-0.007
-Recall: 0.976+-0.012
-Validation rate: 0.90233+-0.01592 @ FAR=0.00133
-Area Under Curve (AUC): 0.997
-Equal Error Rate (EER): 0.023
-
 // 20180320-080617 (squeezenet_v1_1, VGGFace2)
 Accuracy: 0.980+-0.004
 Precision: 0.983+-0.008
@@ -60,7 +34,6 @@ Validation rate: 0.90567+-0.02508 @ FAR=0.00167
 Area Under Curve (AUC): 0.998
 Equal Error Rate (EER): 0.020
 
-// 20180323-080318
 // 20180324-080308 (inception_resnet_v2, VGGFace2)
 Accuracy: 0.992+-0.005
 Precision: 0.995+-0.004
@@ -146,3 +119,7 @@ python3 ~/PycharmProjects/facenet/deeplearningjs/dump_checkpoints/dump_checkpoin
     --output_dir=~/PycharmProjects/facenet/deeplearningjs/dumped/squeezenet_v1_1_vggface2/ \
     --checkpoint_file=~/PycharmProjects/facenet/models/facenet/20180322-001311/model-20180322-001311.ckpt-271000
 
+// freeze model
+python3 ~/PycharmProjects/facenet/src/freeze_graph.py \
+    ~/PycharmProjects/facenet/models/facenet/20180320-080617/ \
+    ~/PycharmProjects/facenet/models/frozen/20180320-080617.pb
