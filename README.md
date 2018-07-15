@@ -37,7 +37,7 @@ The implementation is src/models/squeezenet_v1_1.py which is based on src/models
 | [squeezenet_10_vggface2 (tensorflow.js)](https://github.com/helloyide/facenet/tree/master/deeplearningjs/dumped/squeezenet_10_vggface2) |         | VGGFace2    | SqueezeNet |
 | [squeezenet_v1_1_vggface2 (tensorflow.js)](https://github.com/helloyide/facenet/tree/master/deeplearningjs/dumped/squeezenet_v1_1_vggface2) |         | VGGFace2    | SqueezeNet v1.1 |
 | [inception_resnet_v2_vggface2](https://drive.google.com/file/d/1GG_b0-wokxp-26ZfNA_-FUOtKLgsVJ7d/view?usp=sharing) | 0.992        | VGGFace2      | Inception Resnet v2 |
-| [squeezenet_v1_1_vggface2](https://drive.google.com/file/d/1GG_b0-wokxp-26ZfNA_-FUOtKLgsVJ7d/view?usp=sharing) | 0.980        | VGGFace2      | SqueezeNet v1.1 |
+| [squeezenet_v1_1_vggface2](https://drive.google.com/file/d/10ZNQvXPmFLzHxKKqsIRM6EZVv0Tbaem_/view?usp=sharing) | 0.980        | VGGFace2      | SqueezeNet v1.1 |
 
 
 ## New contributed scripts and other changes 
