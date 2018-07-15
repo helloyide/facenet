@@ -36,7 +36,8 @@ The implementation is src/models/squeezenet_v1_1.py which is based on src/models
 |-----------------|--------------|------------------|-------------|
 | [squeezenet_10_vggface2 (tensorflow.js)](https://github.com/helloyide/facenet/tree/master/deeplearningjs/dumped/squeezenet_10_vggface2) |         | VGGFace2    | SqueezeNet |
 | [squeezenet_v1_1_vggface2 (tensorflow.js)](https://github.com/helloyide/facenet/tree/master/deeplearningjs/dumped/squeezenet_v1_1_vggface2) |         | VGGFace2    | SqueezeNet v1.1 |
-| [20170512-110547](https://drive.google.com/file/d/0B5MzpY9kBtDVZ2RpVDYwWmxoSUk) | 0.992        | MS-Celeb-1M      | [Inception ResNet v1](https://github.com/davidsandberg/facenet/blob/master/src/models/inception_resnet_v1.py) |
+| [inception_resnet_v2_vggface2](https://drive.google.com/file/d/1GG_b0-wokxp-26ZfNA_-FUOtKLgsVJ7d/view?usp=sharing) | 0.992        | VGGFace2      | Inception Resnet v2 |
+| [squeezenet_v1_1_vggface2](https://drive.google.com/file/d/1GG_b0-wokxp-26ZfNA_-FUOtKLgsVJ7d/view?usp=sharing) | 0.980        | VGGFace2      | SqueezeNet v1.1 |
 
 
 ## New contributed scripts and other changes 
