@@ -1,16 +1,13 @@
+import csv
 import math
+import os
 import pickle
 
-import h5py
-import tensorflow as tf
 import numpy as np
-import csv
-import os
-
-from sklearn.svm import SVC
+import tensorflow as tf
+from scipy import misc
 
 import facenet
-from facenet import ImageClass
 
 vgg_num_image_per_folder = 1  # -1 means all
 vgg_gender_meta_file_path = "../datasets/VGGFace2/meta/identity_meta.csv"
@@ -22,10 +19,13 @@ lfw_meta_male_file_path = "../datasets/lfw/gender/male_names.txt"
 lfw_images_path = "../datasets/lfw/lfw_mtcnnpy_160"
 
 data_save_path = "../datasets/VGGFace2/gender/saved_data"
+
 # inception resnet v2 trained with vggface2, acc: 0.992, validation: 0.958
 feature_extraction_model = "../models/facenet/20180324-080308"
 batch_size = 100
 image_size = 160
+
+do_flip = True
 
 image_paths_m = []
 image_paths_f = []
@@ -42,6 +42,22 @@ def build_id2gender_map():
             id, _, _, _, gender = line
             result[id] = gender.strip()
     return result
+
+
+def load_data(img_paths, flip, img_size, do_prewhiten=True):
+    m = len(img_paths)
+    imgs = np.zeros((m, img_size, img_size, 3))
+    for i in range(m):
+        img = misc.imread(img_paths[i])
+        if img.ndim == 2:
+            img = facenet.to_rgb(img)
+        if do_prewhiten:
+            img = facenet.prewhiten(img)
+        img = facenet.crop(img, False, image_size)
+        if flip:
+            img = np.fliplr(img)
+        imgs[i, :, :, :] = img
+    return imgs
 
 
 id2gender = build_id2gender_map()
@@ -67,7 +83,6 @@ with open(vgg_age_meta_file_path, "r", newline="") as file:
         image_paths.append(image_path)
         data.append({"image_path": image_path, "gender": gender, "age_young": age_young})
 
-
 with tf.Graph().as_default():
     with tf.Session() as sess:
         # Load the model
@@ -89,7 +104,7 @@ with tf.Graph().as_default():
             start_index = i * batch_size
             end_index = min((i + 1) * batch_size, nrof_images)
             paths_batch = image_paths[start_index:end_index]
-            images = facenet.load_data(paths_batch, False, False, image_size)
+            images = load_data(paths_batch, do_flip, image_size)
             feed_dict = {images_placeholder: images, phase_train_placeholder: False}
             emb_array[start_index:end_index, :] = sess.run(embeddings, feed_dict=feed_dict)
 
@@ -99,6 +114,8 @@ for i, d in enumerate(data):
 
 # Saving data array
 data_save_path_exp = os.path.expanduser(data_save_path)
+if do_flip:
+    data_save_path_exp += "_flip"
 # data is a list with length 2000
 # elements are {
 #   'image_path': str
